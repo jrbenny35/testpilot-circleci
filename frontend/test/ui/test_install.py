@@ -5,11 +5,12 @@ import pytest
 from pages.desktop.home import Home
 from pages.desktop.detail import Detail
 
+ff = subprocess.Popen("firefox --verison", shell=True, stdout=subprocess.PIPE,
+                      stderr=subprocess.STDOUT)
+
 
 @pytest.mark.nondestructive
-@pytest.mark.skipif('57' not in subprocess.Popen("firefox --verison",
-                    shell=True, stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT).stdout.readlines(),
+@pytest.mark.skipif('57' not in ff.stdout.readlines(),
                     reason="57 needed to install unsigned addon")
 def test_install_of_test_pilot_addon(
         base_url, selenium, firefox, notifications):
@@ -21,9 +22,7 @@ def test_install_of_test_pilot_addon(
 
 
 @pytest.mark.nondestructive
-@pytest.mark.skipif('57' not in subprocess.Popen("firefox --verison",
-                    shell=True, stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT).stdout.readlines(),
+@pytest.mark.skipif('57' not in ff.stdout.readlines(),
                     reason="57 needed to install unsigned addon")
 def test_enable_experiment(base_url, selenium, firefox, notifications):
     """Test enabling of an experiment."""
