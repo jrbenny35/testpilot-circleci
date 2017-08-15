@@ -1,7 +1,12 @@
+import subprocess
+
 import pytest
 
 from pages.desktop.home import Home
 from pages.desktop.detail import Detail
+
+ff = subprocess.Popen("firefox --verison", shell=True, stdout=subprocess.PIPE,
+                      stderr=subprocess.STDOUT)
 
 
 @pytest.mark.nondestructive
